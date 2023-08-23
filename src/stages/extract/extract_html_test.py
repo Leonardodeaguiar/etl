@@ -12,7 +12,7 @@ def test_extract():
     extract_html = ExtractHtml(http_requester, http_collector)
     response = extract_html.extract()
     print()
-    # print(response)
+    print(response)
 
     assert isinstance(response, ExtractContract)
 

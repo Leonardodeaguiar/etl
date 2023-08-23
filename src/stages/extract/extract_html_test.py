@@ -21,9 +21,8 @@ def test_extract_error():
     http_requester = "Vai dar Errado"
     http_collector = HtmlCollector()
 
-    extract_html = ExtractHtml(http_requester, http_collector)
-
     try:
+        extract_html = ExtractHtml(http_requester, http_collector)  # type: ignore
         extract_html.extract()
     except Exception as exception:
         assert isinstance(exception, ExtractError)

@@ -6,7 +6,6 @@ disable =
      C0116, # missing-function-docstring
      W0221, # argument difference
      W0718, # broad-exception-caught
-     R1705, # no-else-return
      
 # Analyse import fallback blocks. This can be used to support both Python 2 and
 # 3 compatible code, which means that the block might have code that exists

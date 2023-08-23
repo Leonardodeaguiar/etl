@@ -1,5 +1,7 @@
 from src.stages.contracts.mock.extract_contract import extract_contract_mock
 from src.stages.contracts.transform_contract import TransformContract
+
+# from src.errors.transform_error import TransformError
 from .transform_raw_data import TransformRawData
 
 
@@ -12,3 +14,7 @@ def test_transform():
     assert "last_name" in transformed_data_contract.load_content[0]
     assert "artist_id" in transformed_data_contract.load_content[0]
     assert "link" in transformed_data_contract.load_content[0]
+
+
+def test_transform_error():
+    pass

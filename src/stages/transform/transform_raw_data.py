@@ -1,15 +1,21 @@
 from typing import List, Dict
 from src.stages.contracts.extract_contract import ExtractContract
 from src.stages.contracts.transform_contract import TransformContract
+from src.errors.transform_error import TransformError
 
 
 class TransformRawData:
-    def transform(self, extract_contract: ExtractContract) -> TransformContract:
-        transformed_information = self.__filter_and_transform_data(extract_contract)
-        transformed_data_contract = TransformContract(
-            load_content=transformed_information
-        )
-        return transformed_data_contract
+    try:
+
+        def transform(self, extract_contract: ExtractContract) -> TransformContract:
+            transformed_information = self.__filter_and_transform_data(extract_contract)
+            transformed_data_contract = TransformContract(
+                load_content=transformed_information
+            )
+            return transformed_data_contract
+
+    except Exception as exception:
+        raise TransformError(str(exception)) from exception
 
     def __filter_and_transform_data(
         self, extract_contract: ExtractContract
@@ -40,7 +46,8 @@ class TransformRawData:
 
         return transformed_information
 
-    def __transform_data(self, names: List, link: str) -> Dict:
+    @classmethod
+    def __transform_data(cls, names: List, link: str) -> Dict:
         link_splitted = link.split("artistid=")
         if len(names) == 2:
             return {
@@ -50,7 +57,8 @@ class TransformRawData:
                 "artist_id": link_splitted[1],
                 "link": link,
             }
-        elif len(names) == 3:
+
+        if len(names) == 3:
             return {
                 "first_name": names[2],
                 "last_name": names[0],
@@ -58,11 +66,11 @@ class TransformRawData:
                 "artist_id": link_splitted[1],
                 "link": link,
             }
-        else:
-            return {
-                "first_name": names[2],
-                "last_name": None,
-                "surname": None,
-                "artist_id": link_splitted[1],
-                "link": link,
-            }
+
+        return {
+            "first_name": names[2],
+            "last_name": None,
+            "surname": None,
+            "artist_id": link_splitted[1],
+            "link": link,
+        }
